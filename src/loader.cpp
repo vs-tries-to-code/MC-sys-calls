@@ -1,6 +1,6 @@
-#pragma once
 #include "loader.h"
 #include<fstream>
+#include <ostream>
 #include<vector>
 #include<iostream>
 #include<filesystem>
@@ -54,6 +54,7 @@ void printSummary(string name, const vector<Trace> &traces){
         }
     }
 
+    cout << "Folder name : " << name << endl; 
     cout << "Largest call : " << largestCall << endl;
     cout << "Empty traces : " << emptyTraces << endl;
     return;
