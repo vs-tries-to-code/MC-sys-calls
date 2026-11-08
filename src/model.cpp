@@ -14,7 +14,7 @@ void countTransitions(vector<Trace>& traces){
 
 void calcProbability(){
     for(int i = 0; i < tpm.size(); i++){
-        int rCount = 0;
+        double rCount = 0;
         for(int j = 0; j < N; j++){
             tpm[i][j] += SMOOTH;
             rCount += tpm[i][j];
