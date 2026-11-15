@@ -62,7 +62,7 @@ The model is a first-order Markov chain: the next call depends only on the curre
 - [x] Dataset sanity summary (trace counts, largest call ID, empty traces)
 - [x] First-order transition counting and smoothed probabilities
 - [x] Verified: every row of the matrix sums to 1
-- [ ] Trace scoring (average log-probability per transition)
+- [x] Trace scoring (average log-probability per transition)
 - [ ] Threshold selection on validation data
 - [ ] Evaluation: detection rate and false alarm rate, per attack type
 - [ ] CSV output and ROC plot
