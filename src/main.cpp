@@ -1,5 +1,6 @@
 #include "loader.h"
 #include "model.h"
+#include "scoring.h"
 #include <vector>
 #include <iostream>
 
@@ -27,6 +28,7 @@ int main(){
     }
     
     cout << "Worst row-sum error: " << worstError << endl;   // should be tiny, like 1e-15
+   
     int from = 6;
     int bestTo = 0;
     for (int j = 0; j < N; j++) {
@@ -34,6 +36,10 @@ int main(){
     }
     cout << "From " << from << ", most likely next call is " << bestTo
          << " with probability " << tpm[from][bestTo] << endl;
+
+    printScoreStats("training", training);
+    printScoreStats("validation", validation);
+    printScoreStats("attack", attack);
     
     return 0;
 }
