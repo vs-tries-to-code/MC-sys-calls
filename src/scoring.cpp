@@ -1,4 +1,5 @@
-#include "model.h""
+#include <iostream>
+#include "model.h"
 #include "scoring.h"
 #include <cmath>
 
@@ -41,4 +42,43 @@ double averageScore(const vector<Trace> &traces){
     double mean = total/scored;
 
     return mean;
+}
+
+void printScoreStats(string name, const vector<Trace> &traces){
+    double total = 0.0;
+    double lowest = 0.0;
+    double highest = 0.0;
+    int scored = 0;
+
+    for(int i = 0; i < traces.size(); i++){
+        if(traces[i].calls.size() < 2){
+            continue;
+        }
+
+        double score = scoreTrace(traces[i]);
+        total += score;
+
+        if(scored == 0){
+            lowest = score;
+            highest = score;
+        }
+        if(score < lowest){
+            lowest = score;
+        }
+        if(score > highest){
+            highest = score;
+        }
+        scored++;
+    }
+
+    if(scored == 0){
+        cout << name << ": nothing to score" << endl;
+        return;
+    }
+
+    // Step 3: print the results
+    cout << name << ": " << scored << " scored, "
+         << "average = " << total / scored << ", "
+         << "lowest = " << lowest << ", "
+         << "highest = " << highest << endl;
 }
