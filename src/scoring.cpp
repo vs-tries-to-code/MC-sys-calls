@@ -4,6 +4,7 @@
 #include <cmath>
 #include <vector>
 #include <algorithm>
+#include <random>
 
 double scoreTrace(const Trace &trace){
     double total = 0.0;
@@ -108,4 +109,36 @@ double findThreshold(vector<double> scores, double targetRate){
     }
 
     return scores[index];
+}
+
+void splitScores(vector<double> scores, vector<double> &A, vector<double> &B){
+    mt19937 rng(42);
+
+    shuffle(scores.begin(), scores.end(), rng);
+
+    int middle = scores.size()/2;
+
+    for (int i=0; i < scores.size(); i++) {
+        if(i < middle){
+            A.push_back(scores[i]);
+        }
+        else {
+            B.push_back(scores[i]);
+        }
+    }
+}
+
+double fractionBelow(vector<double> &scores, double threshold){
+    if(scores.size() == 0){
+            return 0.0;
+        }
+
+    double num=0.0;
+    for(int i=0; i < scores.size(); i++){
+        if (scores[i] < threshold){
+            num++;
+        }
+    }
+
+    return num/scores.size();
 }
