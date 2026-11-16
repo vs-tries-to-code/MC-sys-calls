@@ -2,6 +2,8 @@
 #include "model.h"
 #include "scoring.h"
 #include <cmath>
+#include <vector>
+#include <algorithm>
 
 double scoreTrace(const Trace &trace){
     double total = 0.0;
@@ -76,9 +78,34 @@ void printScoreStats(string name, const vector<Trace> &traces){
         return;
     }
 
-    // Step 3: print the results
     cout << name << ": " << scored << " scored, "
          << "average = " << total / scored << ", "
          << "lowest = " << lowest << ", "
          << "highest = " << highest << endl;
+}
+
+vector<double> scoreAll(vector<Trace> &traces){
+    vector<double> scores;
+    for(int i = 0;  i < traces.size(); i++){
+        if (traces[i].calls.size() < 2){
+            continue;
+        }
+
+        scores.push_back(scoreTrace(traces[i]));
+    } 
+
+    return scores;
+}
+
+double findThreshold(vector<double> scores, double targetRate){
+    sort(scores.begin(), scores.end());
+
+    int index = targetRate * scores.size();
+
+    //guard against 100&
+    if(index >= scores.size()){
+        index = scores.size() - 1;
+    }
+
+    return scores[index];
 }
