@@ -69,3 +69,6 @@ Testing/
 
 #data files
 data/
+
+#result files
+results/
