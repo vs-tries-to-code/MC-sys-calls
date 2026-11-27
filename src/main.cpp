@@ -1,6 +1,7 @@
 #include "loader.h"
 #include "model.h"
 #include "scoring.h"
+#include "evaluate.h"
 #include <vector>
 #include <iostream>
 
@@ -58,6 +59,8 @@ int main(){
          << fractionBelow(halfA, threshold) << endl;
     cout << "False alarm rate (Half B): " << fractionBelow(halfB, threshold) << endl;
     cout << "Detection rate (attack):   " << fractionBelow(attackScores, threshold) << endl;
+
+    ROCValues(validationScores, attackScores, "results/roc_order1.csv");
     
     return 0;
 }
