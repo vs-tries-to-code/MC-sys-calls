@@ -3,7 +3,7 @@
 #include<fstream>
 #include "loader.h"
 
-const int SMOOTH = 1;
+const double SMOOTH = 0.001;
 const int N = 341;  //
 
 extern vector<vector<double>> tpm;
