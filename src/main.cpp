@@ -40,6 +40,24 @@ int main(){
     printScoreStats("training", training);
     printScoreStats("validation", validation);
     printScoreStats("attack", attack);
+
+    vector<double> validationScores = scoreAll(validation);
+
+    vector<double> halfA, halfB;
+    splitScores(validationScores, halfA, halfB);
+
+    cout << "Half A: " << halfA.size() << ", Half B: " << halfB.size() << endl;
+
+    vector<double> attackScores = scoreAll(attack);
+    
+    double target = 0.05;
+    double threshold = findThreshold(halfA, target);
+    
+    cout << "Threshold: " << threshold << endl;
+    cout << "Half A flagged (should be close to " << target << "): "
+         << fractionBelow(halfA, threshold) << endl;
+    cout << "False alarm rate (Half B): " << fractionBelow(halfB, threshold) << endl;
+    cout << "Detection rate (attack):   " << fractionBelow(attackScores, threshold) << endl;
     
     return 0;
 }
