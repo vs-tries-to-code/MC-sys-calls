@@ -1,10 +1,10 @@
 #include <iostream>
+#include "loader.h"
 #include "model.h"
 #include "scoring.h"
 #include <cmath>
 #include <vector>
-#include <algorithm>
-#include <random>
+#include <string>
 
 double scoreTrace(const Trace &trace){
     double total = 0.0;
@@ -85,7 +85,7 @@ void printScoreStats(string name, const vector<Trace> &traces){
          << "highest = " << highest << endl;
 }
 
-vector<double> scoreAll(vector<Trace> &traces){
+vector<double> scoreAll(const vector<Trace> &traces){
     vector<double> scores;
     for(int i = 0;  i < traces.size(); i++){
         if (traces[i].calls.size() < 2){
@@ -96,49 +96,4 @@ vector<double> scoreAll(vector<Trace> &traces){
     } 
 
     return scores;
-}
-
-double findThreshold(vector<double> scores, double targetRate){
-    sort(scores.begin(), scores.end());
-
-    int index = targetRate * scores.size();
-
-    //guard against 100&
-    if(index >= scores.size()){
-        index = scores.size() - 1;
-    }
-
-    return scores[index];
-}
-
-void splitScores(vector<double> scores, vector<double> &A, vector<double> &B){
-    mt19937 rng(42);
-
-    shuffle(scores.begin(), scores.end(), rng);
-
-    int middle = scores.size()/2;
-
-    for (int i=0; i < scores.size(); i++) {
-        if(i < middle){
-            A.push_back(scores[i]);
-        }
-        else {
-            B.push_back(scores[i]);
-        }
-    }
-}
-
-double fractionBelow(vector<double> &scores, double threshold){
-    if(scores.size() == 0){
-            return 0.0;
-        }
-
-    double num=0.0;
-    for(int i=0; i < scores.size(); i++){
-        if (scores[i] < threshold){
-            num++;
-        }
-    }
-
-    return num/scores.size();
 }
