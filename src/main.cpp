@@ -53,6 +53,7 @@ int main(){
     
     double target = 0.05;
     double threshold = findThreshold(halfA, target);
+    typewiseDetection(attack, threshold);
     
     cout << "Threshold: " << threshold << endl;
     cout << "Half A flagged (should be close to " << target << "): "
